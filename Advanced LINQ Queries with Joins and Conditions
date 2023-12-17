@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        var persons = new[]
+        {
+            new { Id = 1, Name = "Alice", DepartmentId = 101 },
+            new { Id = 2, Name = "Bob", DepartmentId = 102 },
+            new { Id = 3, Name = "Charlie", DepartmentId = 101 }
+        };
+
+        var departments = new[]
+        {
+            new { Id = 101, DepartmentName = "IT" },
+            new { Id = 102, DepartmentName = "HR" }
+        };
+
+        var result = persons.Join(
+            departments,
+            person => person.DepartmentId,
+            department => department.Id,
+            (person, department) => new
+            {
+                person.Id,
+                person.Name,
+                Department = department.DepartmentName
+            })
+            .Where(p => p.Department == "IT")
+            .OrderBy(p => p.Name);
+
+        foreach (var person in result)
+        {
+            Console.WriteLine($"ID: {person.Id}, Name: {person.Name}, Department: {person.Department}");
+        }
+    }
+}
