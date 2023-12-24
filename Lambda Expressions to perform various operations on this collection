@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Sample list of Person objects
+        List<Person> people = new List<Person>
+        {
+            new Person { Name = "Alice", Age = 25, City = "New York" },
+            new Person { Name = "Bob", Age = 30, City = "Los Angeles" },
+            new Person { Name = "Charlie", Age = 22, City = "Chicago" },
+            new Person { Name = "David", Age = 28, City = "New York" },
+            new Person { Name = "Eva", Age = 35, City = "Seattle" }
+        };
+
+        // Filtering using Where() with Lambda expression
+        var newYorkPeople = people.Where(p => p.City == "New York");
+
+        Console.WriteLine("People living in New York:");
+        foreach (var person in newYorkPeople)
+        {
+            Console.WriteLine($"Name: {person.Name}, Age: {person.Age}, City: {person.City}");
+        }
+
+        // Projection using Select() with Lambda expression
+        var namesOnly = people.Select(p => p.Name);
+
+        Console.WriteLine("\nNames only:");
+        foreach (var name in namesOnly)
+        {
+            Console.WriteLine(name);
+        }
+
+        // Sorting using OrderBy() with Lambda expression
+        var sortedByAge = people.OrderBy(p => p.Age);
+
+        Console.WriteLine("\nPeople sorted by age:");
+        foreach (var person in sortedByAge)
+        {
+            Console.WriteLine($"Name: {person.Name}, Age: {person.Age}, City: {person.City}");
+        }
+    }
+}
+
+// Sample Person class
+class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public string City { get; set; }
+}
